@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Management System</title>
+    <style>
+      /* Background with a smooth gradient */
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        color: black;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      /* Table styling */
+      table {
+        width: 90%;
+        margin: auto;
+        border-collapse: collapse;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        overflow: hidden;
+        animation: slideUp 1s ease-in-out;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        text-align: left;
+        color: black;
+      }
+
+      th {
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      tr:nth-child(even) {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Form styling */
+      form {
+        margin: 20px auto;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        animation: fadeIn 1.5s ease-in-out;
+      }
+
+      input {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        font-size: 16px;
+      }
+
+      button {
+        background: #ff40d2;
+        color: black;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      button:hover {
+        transform: scale(1.05);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>User Management System</h2>
+    <table>
+      <tr>
+        <th>User Id</th>
+        <th>User Name</th>
+        <th>User Email</th>
+        <th>Age</th>
+        <th>Delete</th>
+      </tr>
+      <% data.forEach(element => { %>
+      <tr>
+        <td><%= element.userUniqueId %></td>
+        <td><%= element.userName %></td>
+        <td><%= element.userEmail %></td>
+        <td><%= element.userAge %></td>
+        <td>
+          <form action="/delete" method="post">
+            <input
+              type="hidden"
+              name="userUniqueId"
+              value="<%= element.userUniqueId %>"
+            />
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+
+    <h2>Add User</h2>
+    <form action="/" method="post">
+      <input type="text" placeholder="User Unique Id" name="userUniqueId" />
+      <input type="text" placeholder="User Name" name="userName" />
+      <input type="text" placeholder="User Email" name="userEmail" />
+      <input type="text" placeholder="User Age" name="userAge" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <h2>Update User</h2>
+    <form action="update" method="post">
+      <input type="text" placeholder="User Unique Id" name="userUniqueId" />
+      <input type="text" placeholder="User Name" name="userName" />
+      <input type="text" placeholder="User Email" name="userEmail" />
+      <input type="text" placeholder="User Age" name="userAge" />
+      <button type="submit">Update</button>
+    </form>
+  </body>
+</html>

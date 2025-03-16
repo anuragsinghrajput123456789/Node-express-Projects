@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="/style.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🌤️ Weather App using NodeJS 🌦️</h1>
+
+      <form action="/weather" method="get" class="search-form">
+        <input
+          type="text"
+          name="city"
+          placeholder="Enter city name 🌍"
+          class="search-input"
+          required
+        />
+        <button type="submit" class="search-button">Get Weather ⛅</button>
+      </form>
+
+      <% if (error) { %>
+      <p class="error"><%= error %></p>
+      <% } else if (weather) { %>
+      <div class="card">
+        <div class="weather-icon">
+          <% if (weather.weather[0].main === 'Clear') { %>
+          <i class="fas fa-sun"></i>
+          <% } else if (weather.weather[0].main === 'Clouds') { %>
+          <i class="fas fa-cloud"></i>
+          <% } else if (weather.weather[0].main === 'Rain') { %>
+          <i class="fas fa-cloud-showers-heavy"></i>
+          <% } else if (weather.weather[0].main === 'Snow') { %>
+          <i class="fas fa-snowflake"></i>
+          <% } else { %>
+          <i class="fas fa-smog"></i>
+          <% } %>
+        </div>
+
+        <p class="temperature">
+          <i class="fas fa-thermometer-half"></i>
+          <%= Math.round(weather.main.temp - 273.15) %>&deg;C
+        </p>
+
+        <p class="weather-condition">
+          <i class="fas fa-cloud"></i> <%= weather.weather[0].main %>
+        </p>
+
+        <p class="location">
+          <i class="fas fa-map-marker-alt"></i>
+          <%= weather.name %>, <%= weather.sys.country %>
+        </p>
+      </div>
+      <% } %>
+    </div>
+  </body>
+</html>

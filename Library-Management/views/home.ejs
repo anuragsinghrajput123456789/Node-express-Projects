@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Library Management System</title>
+    <style>
+      /* Apply a gradient background */
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        color: white;
+      }
+
+      h1 {
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      table {
+        width: 90%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background: white;
+        color: black;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        overflow: hidden;
+        animation: fadeIn 0.8s ease-in-out;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+        transition: background 0.3s ease-in-out;
+      }
+
+      th {
+        background: #6a11cb;
+        color: white;
+        font-weight: bold;
+      }
+
+      tr:hover {
+        background: rgba(106, 17, 203, 0.1);
+      }
+
+      button {
+        background: #ff6f61;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: transform 0.3s, background 0.3s;
+      }
+
+      button:hover {
+        background: #e05247;
+        transform: scale(1.1);
+      }
+
+      form {
+        display: inline;
+      }
+
+      .add-book-form {
+        background: white;
+        padding: 20px;
+        margin: 20px auto;
+        width: 50%;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        animation: slideUp 0.8s ease-in-out;
+      }
+
+      input {
+        padding: 10px;
+        margin: 10px 5px;
+        width: 200px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        transition: box-shadow 0.3s;
+      }
+
+      input:focus {
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .add-btn {
+        background: #28a745;
+      }
+
+      .add-btn:hover {
+        background: #218838;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>📚 Library Management System</h1>
+
+    <table>
+      <tr>
+        <th>Book Name</th>
+        <th>Book Author</th>
+        <th>Pages</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Issue</th>
+        <th>Return</th>
+        <th>Delete</th>
+      </tr>
+      <% data.forEach(element => { %>
+      <tr>
+        <td><%= element.bookName %></td>
+        <td><%= element.bookAuthor %></td>
+        <td><%= element.bookPages %></td>
+        <td>₹<%= element.bookPrice %></td>
+        <td><%= element.bookState %></td>
+        <td>
+          <form action="/issue" method="post">
+            <input
+              type="hidden"
+              name="bookName"
+              value="<%= element.bookName %>"
+            />
+            <button type="submit">📖 Issue</button>
+          </form>
+        </td>
+        <td>
+          <form action="/return" method="post">
+            <input
+              type="hidden"
+              name="bookName"
+              value="<%= element.bookName %>"
+            />
+            <button type="submit" style="background: #007bff">🔄 Return</button>
+          </form>
+        </td>
+        <td>
+          <form action="/delete" method="post">
+            <input
+              type="hidden"
+              name="bookName"
+              value="<%= element.bookName %>"
+            />
+            <button type="submit" style="background: #dc3545">🗑️ Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+
+    <h1>Add a New Book</h1>
+
+    <div class="add-book-form">
+      <form action="/" method="post">
+        <input
+          type="text"
+          placeholder="📖 Book Name"
+          name="bookName"
+          required
+        />
+        <input type="text" placeholder="✍️ Author" name="bookAuthor" required />
+        <input type="number" placeholder="📄 Pages" name="bookPages" required />
+        <input type="number" placeholder="💰 Price" name="bookPrice" required />
+        <button type="submit" class="add-btn">➕ Add Book</button>
+      </form>
+    </div>
+  </body>
+</html>
+ 
